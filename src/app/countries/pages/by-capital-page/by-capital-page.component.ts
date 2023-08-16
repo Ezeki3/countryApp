@@ -13,4 +13,8 @@ export class ByCapitalPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  searchByCapital(term:string):void{
+    console.log({term});
+  }
+  
 }
