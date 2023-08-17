@@ -19,5 +19,8 @@ export class SearchBoxComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  emitValue(value:string):void{
+    this.onValue.emit(value)
+  }
 
 }

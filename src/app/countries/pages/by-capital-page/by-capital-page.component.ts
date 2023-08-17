@@ -14,6 +14,7 @@ export class ByCapitalPageComponent implements OnInit {
   }
 
   searchByCapital(term:string):void{
+    console.log('byCapital');
     console.log({term});
   }
   
