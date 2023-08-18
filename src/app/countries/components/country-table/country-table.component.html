@@ -18,7 +18,10 @@
     <tbody>
       <tr *ngFor="let country of countries; let i = index">
         <td>{{ i+1}}</td>
-        <td>{{ country.flag}}</td>
+        <td>
+          <!-- {{ country.flag}} -->
+          <img [src]="country.flags.svg" [alt]="country.name.common">
+        </td>
         <td>
           <img [src]="country.flags.svg" [alt]="country.name.common">
         </td>
@@ -26,8 +29,7 @@
           {{ country.name.common }}
         </td>
         <td>{{ country.capital}}</td>
-        <td>{{country.capital}}</td>
-        <td>{{country.population}}</td>
+        <td>{{country.population | number}}</td>
         <td> <a href="#">Ver más...</a> </td>
       </tr>
     </tbody>
