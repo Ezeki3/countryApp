@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CountriesService } from '../../services/countries.service';
 import { switchMap } from 'rxjs';
+import { Country } from '../../interfaces/Country';
 
 @Component({
   selector: 'app-country-page',
@@ -10,6 +11,7 @@ import { switchMap } from 'rxjs';
   ]
 })
 export class CountryPageComponent implements OnInit {
+  public country?: Country;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -26,8 +28,10 @@ export class CountryPageComponent implements OnInit {
       if (!country) {
         return this.router.navigateByUrl('');
       } 
-      console.log({country})
-      return
+      // setTimeout(() => {
+      //  this.country = country;  PODEMOS PONER UN SETTIMEOUT PARA MOSTRAR NUESTRO LOADING
+      // }, 1000);
+      return this.country = country;
     })
   }
 
