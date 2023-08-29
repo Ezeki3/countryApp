@@ -12,12 +12,15 @@ export class ByCapitalPageComponent implements OnInit {
 
   public countries: Country[] = [];
   public isLoading: boolean = false;
+  public initialValue: string = '';
 
   constructor(
     private _countriesService: CountriesService,
   ) { }
 
   ngOnInit(): void {
+    this.countries = this._countriesService.cacheStore.byCapital.countries;
+    this.initialValue = this._countriesService.cacheStore.byCapital.term;
   }
 
   searchByCapital(term:string):void{
