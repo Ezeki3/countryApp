@@ -19,8 +19,21 @@ export class CountriesService {
   }
 
   constructor(
-    private htt: HttpClient
-  ){}
+    private htt: HttpClient,
+  ){
+    this.loadFromLocalStorage(); //una vez que tengamos algo en localStorage podemos cargarlo
+  }
+
+  private saveToLocalStorage(){
+    localStorage.setItem( 'cacheStore', JSON.stringify(this.cacheStore));
+
+  }
+
+  private loadFromLocalStorage(){
+    if ( !localStorage.getItem('cacheStore')) return //si no tenemos nada se sale de aqui
+    
+    this.cacheStore = JSON.parse(localStorage.getItem( 'cacheStore' )! ) //recuperamos la data y la asignamos 
+  }
   
   private getCountriesRequest(url:string): Observable<Country[]>{
     return this.htt.get<Country[]>(url)
@@ -49,7 +62,8 @@ export class CountriesService {
 
     return this.getCountriesRequest(url)
       .pipe(
-        tap( countries => this.cacheStore.byCapital = {term, countries}) // para hacer persistente la data en las busquedas
+        tap( countries => this.cacheStore.byCapital = {term, countries}), // para hacer persistente la data en las busquedas
+        tap( () => this.saveToLocalStorage() ) //guardamos la data en el localStorage
       )
   }
 
@@ -58,7 +72,8 @@ export class CountriesService {
 
     return this.getCountriesRequest(url)
       .pipe(
-        tap( countries => this.cacheStore.byCountries = { term,  countries}) // para hacer persistente la data en las busquedas
+        tap( countries => this.cacheStore.byCountries = { term,  countries}), // para hacer persistente la data en las busquedas
+        tap( () => this.saveToLocalStorage() )
       )
   }
 
@@ -67,7 +82,8 @@ export class CountriesService {
 
     return this.getCountriesRequest(url)
     .pipe(
-      tap( countries => this.cacheStore.byRegion = { region , countries}) // para hacer persistente la data en las busquedas
+      tap( countries => this.cacheStore.byRegion = { region , countries}), // para hacer persistente la data en las busquedas
+      tap( () => this.saveToLocalStorage() )
     )
 
 
